@@ -45,7 +45,7 @@ jobs:
       - name: 'Automerge PR'
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.MICHAELTCHUANG_BOT }}
           script: |
             var fs = require('fs');
             var issue_number = Number(fs.readFileSync('./NR'));

@@ -18,7 +18,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [33]
+        api-level: [28,33]
         target: [google_apis]
         arch: [x86_64]
     steps:
@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: "instrumented-tests-results"
+          name: "instrumented-tests-results-${{ matrix.api-level }}"
           path: ./**/build/reports/androidTests/connected/**
 
   android-unit-tests:

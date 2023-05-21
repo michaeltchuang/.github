@@ -16,6 +16,11 @@ jobs:
     name: "Instrumented Tests"
     timeout-minutes: 30
     runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [33]
+        target: [google_apis]
+        arch: [x86_64]
     steps:
       - name: "Checkout Branch"
         uses: actions/checkout@v3
@@ -28,11 +33,16 @@ jobs:
           java-version: "17"
           cache: "gradle"
       - name: "Run Instrumented Tests"
-        uses: reactivecircus/android-emulator-runner@v2.27.0
+        uses: reactivecircus/android-emulator-runner@v2.28.0
         with:
           working-directory: ${{ inputs.app_workspace }}
-          api-level: 29
-          script: ./gradlew connectedCheck
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          avd-name: "avd-${{ matrix.api-level }}"
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew cAT
       - name: "Archive Instrumented Tests Results"
         uses: actions/upload-artifact@v3
         if: ${{ always() }}

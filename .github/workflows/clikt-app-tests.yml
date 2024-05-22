@@ -28,15 +28,11 @@ jobs:
           working-directory: ${{ inputs.app_workspace }}
           run: ./gradlew test
         - name: "Android Unit Tests Report"
-          uses: actions/upload-artifact@v4
+          uses: actions/upload-artifact@v3
           if: ${{ always() }}
           with:
             name: "unit-tests-results"
             path: ./**/build/reports/**
-        - name: "Merge Unit Test Artifacts"
-          uses: actions/upload-artifact/merge@v4
-          with:
-            separate-directories: true
 
   # clikt-lint:
   #   name: "Clikt Lint Checks"
@@ -76,12 +72,8 @@ jobs:
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew ktlintCheck
       - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: "kotlin-lint-results"
           path: ./**/build/reports/**
-      - name: "Merge Lint Artifacts"
-        uses: actions/upload-artifact/merge@v4
-        with:
-          separate-directories: true

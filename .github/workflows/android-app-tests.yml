@@ -44,7 +44,7 @@ jobs:
           disable-animations: true
           script: ./gradlew cAT
       - name: "Archive Instrumented Tests Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: "instrumented-tests-results-${{ matrix.api-level }}"
@@ -88,7 +88,7 @@ jobs:
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew lint
       - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: "lint-results"
@@ -110,7 +110,7 @@ jobs:
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew ktlintCheck
       - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v43
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: "kotlin-lint-results"

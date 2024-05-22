@@ -33,6 +33,10 @@ jobs:
           with:
             name: "unit-tests-results"
             path: ./**/build/reports/**
+        - name: "Merge Unit Test Artifacts"
+          uses: actions/upload-artifact/merge@v4
+          with:
+            separate-directories: true
 
   # clikt-lint:
   #   name: "Clikt Lint Checks"
@@ -77,3 +81,7 @@ jobs:
         with:
           name: "kotlin-lint-results"
           path: ./**/build/reports/**
+      - name: "Merge Lint Artifacts"
+        uses: actions/upload-artifact/merge@v4
+        with:
+          separate-directories: true

@@ -18,7 +18,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [34]
+        api-level: [33]
         target: [google_apis]
         arch: [x86_64]
     steps:
@@ -71,6 +71,10 @@ jobs:
           with:
             name: "unit-tests-results"
             path: ./**/build/reports/**
+        - name: "Merge Unit Test Artifacts"
+          uses: actions/upload-artifact/merge@v4
+          with:
+            separate-directories: true
 
   android-lint:
     name: "Android Lint Checks"
@@ -93,6 +97,10 @@ jobs:
         with:
           name: "lint-results"
           path: ./**/build/reports/**
+      - name: "Merge Lint Artifacts"
+        uses: actions/upload-artifact/merge@v4
+        with:
+          separate-directories: true
 
   android-kotlin-lint:
     name: "Android Kotlin Lint Checks"
@@ -115,3 +123,7 @@ jobs:
         with:
           name: "kotlin-lint-results"
           path: ./**/build/reports/**
+      - name: "Merge Kotlin Lint Artifacts"
+        uses: actions/upload-artifact/merge@v4
+        with:
+          separate-directories: true

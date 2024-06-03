@@ -27,12 +27,13 @@ jobs:
         - name: "Run Unit Tests"
           working-directory: ${{ inputs.app_workspace }}
           run: ./gradlew test
-        - name: "Android Unit Tests Report"
-          uses: actions/upload-artifact@v3
+        - name: "Archive Clikt Unit Tests Report"
+          uses: actions/upload-artifact@v4
           if: ${{ always() }}
           with:
-            name: "unit-tests-results"
+            name: "clikt-unit-tests-results"
             path: ./**/build/reports/**
+            overwrite: true
 
   # clikt-lint:
   #   name: "Clikt Lint Checks"
@@ -71,9 +72,10 @@ jobs:
       - name: "Run Kotlin Lint Checks"
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew ktlintCheck
-      - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v3
+      - name: "Archive Clikt Lint Test Results"
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: "kotlin-lint-results"
+          name: "clikt-kotlin-lint-results"
           path: ./**/build/reports/**
+          overwrite: true

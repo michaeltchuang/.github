@@ -51,7 +51,7 @@ jobs:
 #          path: ./**/build/reports/androidTests/connected/**
 
   android-unit-tests:
-    name: "Android Unit Tests"
+    name: "Android App Unit Tests"
     runs-on: ubuntu-latest
     steps:
         - name: "Checkout"
@@ -65,15 +65,16 @@ jobs:
         - name: "Run Unit Tests"
           working-directory: ${{ inputs.app_workspace }}
           run: ./gradlew test
-        - name: "Android Unit Tests Report"
-          uses: actions/upload-artifact@v3
+        - name: "Archive App Unit Tests Report"
+          uses: actions/upload-artifact@v4
           if: ${{ always() }}
           with:
-            name: "unit-tests-results"
+            name: "app-unit-tests-results"
             path: ./**/build/reports/**
+            overwrite: true
 
   android-lint:
-    name: "Android Lint Checks"
+    name: "Android App Lint Checks"
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
@@ -87,15 +88,16 @@ jobs:
       - name: "Run Lint Checks"
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew lint
-      - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v3
+      - name: "Archive App Lint Test Results"
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: "lint-results"
+          name: "app-lint-results"
           path: ./**/build/reports/**
+          overwrite: true
 
   android-kotlin-lint:
-    name: "Android Kotlin Lint Checks"
+    name: "Android App Kotlin Lint Checks"
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
@@ -109,9 +111,10 @@ jobs:
       - name: "Run Kotlin Lint Checks"
         working-directory: ${{ inputs.app_workspace }}
         run: ./gradlew ktlintCheck
-      - name: "Archive Lint Test Results"
-        uses: actions/upload-artifact@v3
+      - name: "Archive App Lint Test Results"
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: "kotlin-lint-results"
+          name: "app-kotlin-lint-results"
           path: ./**/build/reports/**
+          overwrite: true
